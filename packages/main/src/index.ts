@@ -2,6 +2,8 @@ import { app, BrowserWindow, ipcMain, shell } from "electron";
 import { join } from "path";
 import { URL } from "url";
 
+const { readFileSync } = require("fs");
+const { Client } = require("ssh2");
 const net = require("net");
 const isSingleInstance = app.requestSingleInstanceLock();
 
@@ -31,9 +33,9 @@ let mainWindow: BrowserWindow | null = null;
 
 const createWindow = async () => {
   mainWindow = new BrowserWindow({
-    width: 1500,
-    height: 1000,
-    minWidth: 700,
+    width: 900,
+    height: 700,
+    minWidth: 900,
     show: false, // Use 'ready-to-show' event to show window
     webPreferences: {
       nativeWindowOpen: true,
@@ -146,3 +148,72 @@ ipcMain.handle("start-tcp-server", (event, serverHost, serverPort) => {
 ipcMain.handle("open-url-in-browser", (_, url) => {
   shell.openExternal(url);
 });
+
+const conn = new Client();
+conn
+  .on("ready", () => {
+    console.log("Client :: ready");
+    conn.forwardIn("127.0.0.1", 9003, (err) => {
+      if (err) throw err;
+      console.log("Listening for connections on server on port 9003!");
+    });
+  })
+  .on("tcp connection", (info, accept, reject) => {
+    console.log("TCP :: INCOMING CONNECTION:");
+    console.dir(info);
+    accept()
+      .on("close", () => {
+        console.log("TCP :: CLOSED");
+      })
+      .on("data", (data) => {
+        console.log("TCP :: DATA: " + data);
+      });
+    // .end(
+    //   [
+    //     "HTTP/1.1 404 Not Found",
+    //     "Date: Thu, 15 Nov 2012 02:07:58 GMT",
+    //     "Server: ForwardedConnection",
+    //     "Content-Length: 0",
+    //     "Connection: close",
+    //     "",
+    //     "",
+    //   ].join("\r\n")
+    // );
+  })
+  .connect({
+    host: "18.136.14.58",
+    port: 22,
+    username: "ubuntu",
+    privateKey: readFileSync(
+      "/Users/faiz/LightsailDefaultKey-ap-southeast.pem"
+    ),
+  });
+// const conn = new Client();
+// conn
+//   .on("ready", () => {
+//     console.log("Client :: ready");
+//     conn.exec("uptime", (err, stream) => {
+//       if (err) throw err;
+//       stream
+//         .on("close", (code, signal) => {
+//           console.log(
+//             "Stream :: close :: code: " + code + ", signal: " + signal
+//           );
+//           conn.end();
+//         })
+//         .on("data", (data) => {
+//           console.log("STDOUT: " + data);
+//         })
+//         .stderr.on("data", (data) => {
+//           console.log("STDERR: " + data);
+//         });
+//     });
+//   })
+//   .connect({
+//     host: "18.136.14.58",
+//     port: 22,
+//     username: "ubuntu",
+//     privateKey: readFileSync(
+//       "/Users/faiz/LightsailDefaultKey-ap-southeast.pem"
+//     ),
+//   });

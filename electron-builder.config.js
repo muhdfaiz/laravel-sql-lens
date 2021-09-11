@@ -8,6 +8,8 @@ if (process.env.VITE_APP_VERSION === undefined) {
  * @see https://www.electron.build/configuration/configuration
  */
 const config = {
+  "appId": "com.laravel-sql-lens.app",
+  "productName": "Laravel SQL Lens",
   directories: {
     output: 'dist',
     buildResources: 'buildResources',
@@ -17,6 +19,53 @@ const config = {
   ],
   extraMetadata: {
     version: process.env.VITE_APP_VERSION,
+  },
+  "win": {
+    "target": [{ "target": "nsis" }, { "target": "portable" }],
+    "publisherName": "Muhammad Faiz",
+    "rfc3161TimeStampServer": "http://timestamp.digicert.com"
+  },
+  "nsis": {
+    "artifactName": "laravel-sql-lens.setup.${version}.${ext}"
+  },
+  "portable": {
+    "artifactName": "laravel-sql-lens.portable.${version}.${ext}"
+  },
+  "mac": {
+    "target": "dmg",
+    "type": "distribution",
+    "artifactName": "laravel-sql-lens.setup.${version}.${ext}",
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "entitlements": "build-res/entitlements.mac.plist",
+    "entitlementsInherit": "build-res/entitlements.mac.plist"
+  },
+  "dmg": {
+    "sign": false
+  },
+  "linux": {
+    "target": [
+      {
+        "target": "AppImage"
+      },
+      {
+        "target": "snap"
+      },
+      {
+        "target": "deb"
+      },
+      {
+        "target": "rpm"
+      }
+    ],
+    "category": "Development",
+    "icon": "build-res",
+    "artifactName": "laravel-sql-lens-${version}.${ext}",
+    "desktop": {
+      "Name": "Laravel SQL Lens",
+      "Type": "Application",
+      "Categories": "Development"
+    }
   },
 };
 

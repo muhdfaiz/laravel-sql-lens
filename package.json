@@ -1,6 +1,6 @@
 {
   "name": "laravel-sql-lens",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A desktop app built for laravel to monitor and optimize SQL query,",
   "keywords": [
     "SQL",
@@ -18,7 +18,7 @@
     "build": "node scripts/build.js",
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
-    "compile-win": "electron-builder build --config electron-builder.config.js --dir --win --x64 --config.asar=false",
+    "compile-win": "electron-builder build --config electron-builder.config.js --dir --windows nsis:ia32 --pd",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node tests/app.spec.js",
     "watch": "node scripts/watch.js",
@@ -58,19 +58,20 @@
     "vue-tsc": "0.3.0"
   },
   "dependencies": {
-    "electron-updater": "4.6.0",
-    "vue": "3.2.11",
-    "vue-router": "4.0.11",
     "@highlightjs/vue-plugin": "^2.0.1",
     "@soerenmartius/vue3-clipboard": "^0.1.2",
     "@vue/compiler-sfc": "^3.1.5",
     "bootstrap": "^5.0.2",
+    "electron-updater": "4.6.0",
     "highlight.js": "^11.1.0",
     "primeicons": "^4.1.0",
     "primevue": "^3.5.1",
     "prismjs": "^1.24.1",
     "sql-formatter": "^4.0.2",
+    "ssh2": "^1.4.0",
     "typeface-roboto": "^1.1.13",
+    "vue": "3.2.11",
+    "vue-router": "4.0.11",
     "vuex": "^4.0.2",
     "vuex-map-fields": "^1.4.1"
   },
