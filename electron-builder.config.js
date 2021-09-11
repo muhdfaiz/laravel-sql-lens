@@ -16,10 +16,8 @@ const config = {
   },
   files: [
     'packages/**/dist/**',
+    "buildResources/icon.png"
   ],
-  extraMetadata: {
-    version: process.env.VITE_APP_VERSION,
-  },
   "win": {
     "target": [{ "target": "nsis" }, { "target": "portable" }],
     "publisherName": "Muhammad Faiz",
@@ -37,8 +35,6 @@ const config = {
     "artifactName": "laravel-sql-lens.setup.${version}.${ext}",
     "hardenedRuntime": true,
     "gatekeeperAssess": false,
-    "entitlements": "build-res/entitlements.mac.plist",
-    "entitlementsInherit": "build-res/entitlements.mac.plist"
   },
   "dmg": {
     "sign": false
@@ -59,7 +55,7 @@ const config = {
       }
     ],
     "category": "Development",
-    "icon": "build-res",
+    "icon": "buildResources",
     "artifactName": "laravel-sql-lens-${version}.${ext}",
     "desktop": {
       "Name": "Laravel SQL Lens",

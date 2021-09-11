@@ -1,6 +1,6 @@
 {
   "name": "laravel-sql-lens",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A desktop app built for laravel to monitor and optimize SQL query,",
   "keywords": [
     "SQL",
@@ -18,7 +18,10 @@
     "build": "node scripts/build.js",
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
-    "compile-win": "electron-builder build --config electron-builder.config.js --dir --windows nsis:ia32 --pd",
+    "clean-dist": "rm -rf ./dist",
+    "package:win": "npm run clean-dist && electron-builder --publish never --win --config electron-builder.config.js",
+    "package:linux": "npm run clean-dist && electron-builder --publish never --linux --config electron-builder.config.js",
+    "package:mac": "npm run clean-dist && electron-builder --publish never --mac --config electron-builder.config.js",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node tests/app.spec.js",
     "watch": "node scripts/watch.js",
