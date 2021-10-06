@@ -11,5 +11,15 @@
     "parser": "@typescript-eslint/parser",
     "ecmaVersion": 12,
     "sourceType": "module"
+  },
+  "rules": {
+      /**
+  * This will make the history of changes in the hit a little cleaner
+  */
+  "comma-dangle": [
+    "warn",
+    "always-multiline"
+  ]
   }
+
 }

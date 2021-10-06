@@ -1,0 +1,80 @@
+#server-settings {
+  #private-key {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  #select-private-key {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .notes {
+    font-size: 0.85rem;
+  }
+  a {
+    color: #8dd0ff;
+  }
+
+  .server-list {
+    .p-toggleable-content {
+      max-height: 20rem;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 0.5rem;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 1.4rem;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #666;
+        border-radius: 1.4rem;
+      }
+    }
+
+    .server:last-child {
+      margin-bottom: 0 !important;
+    }
+    .server {
+      cursor: pointer;
+      margin-bottom: 1rem;
+
+      .server-type {
+        padding: 0.2rem 0.75rem;
+        width: auto;
+        display: inline-flex;
+        align-items: center;
+        color: #FFF;
+        font-weight: 400;
+        font-size: 0.7rem;
+        margin-left: 0.5rem;
+        border-radius: 10%;
+
+        &.ssh {
+          background-color: #5543bb;
+        }
+        &.local {
+          background-color: #3e967c;
+        }
+      }
+      .server-name {
+        font-weight: bold;
+        font-size: 1rem;
+      }
+      .server-host {
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .app-version {
+    position: absolute;
+    bottom: 0rem;
+    left: 50%;
+    font-weight: 700;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+  }
+}

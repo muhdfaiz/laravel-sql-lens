@@ -1,0 +1,15 @@
+// Font Size
+$font-sizes: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+@each $property in $font-sizes {
+  .#{"font-size-" + $property} {
+    font-size: #{$property}rem !important;
+  }
+}
+
+// Font Weight
+$font-weights: (100, 200, 300, 400, 500, 600, 700, 800, bold, bolder, lighter, normal);
+@each $property in $font-weights {
+  .#{"font-weight-" + $property} {
+    font-weight: #{$property} !important;
+  }
+}

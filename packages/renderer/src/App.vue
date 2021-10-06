@@ -1,15 +1,10 @@
-<template>
+<template html>
   <router-view />
+  <Toast position="bottom-right" />
 </template>
 
-<script lang=ts>
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'App',
-  components: {
-  },
-});
+<script lang=ts setup>
+import Toast from "primevue/toast";
 </script>
 
 <style lang="scss">

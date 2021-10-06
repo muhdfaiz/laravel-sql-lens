@@ -1,35 +1,48 @@
+import type { SqlQueryGroup } from "./../../renderer/types/sql-query.d";
 import { contextBridge, ipcRenderer } from "electron";
+import type { ElectronApi } from "types/electron-api";
+import type { ServerModel } from "../../renderer/src/database/server-model";
+import type { ISshConnectionData } from "../../renderer/types/ssh-connection";
 
 const apiKey = "electron";
-/**
- * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
- */
+
 const api: ElectronApi = {
-  startTcpServer: (host: string, port: string) => {
+  startTcpServer: (host: string, port: number) => {
     ipcRenderer.invoke("start-tcp-server", host, port);
   },
-  newDataReceived: (channel: string, func: any) => {
+  stopTcpServer: () => {
+    ipcRenderer.invoke("stop-tcp-server");
+  },
+  stopSshServerConnection: () => {
+    ipcRenderer.invoke("stop-ssh-server-connection");
+  },
+  testSshConnection: (sshConnectionData: ISshConnectionData) => {
+    ipcRenderer.invoke("test-ssh-connection", sshConnectionData);
+  },
+  sshIntoServerAndListenSqlQueries: (server: ServerModel) => {
+    ipcRenderer.invoke("ssh-into-server-and-listen-sql-queries", server);
+  },
+  onReceiveNewSqlQueryGroup: (
+    channel: string,
+    func: (event: Event, data: SqlQueryGroup) => void,
+  ) => {
     ipcRenderer.on(channel, func);
   },
   openURLInBrowser: (url: string) => {
     ipcRenderer.invoke("open-url-in-browser", url);
   },
+  selectSshPrivateKey: () => {
+    ipcRenderer.invoke("select-ssh-private-key");
+  },
+  removeListener: (listener: string) => {
+    ipcRenderer.removeAllListeners(listener);
+  },
+  addListener: (eventName: string, listener) => {
+    ipcRenderer.addListener(eventName, listener);
+  },
 };
 
-/**
- * If contextIsolated enabled use contextBridge
- * Else use fallback
- *
- * Note: Spectron tests can't work in isolated context
- * @see https://github.com/electron-userland/spectron/issues/693#issuecomment-748482545
- */
 if (process.contextIsolated) {
-  /**
-   * The "Main World" is the JavaScript context that your main renderer code runs in.
-   * By default, the page you load in your renderer executes code in this world.
-   *
-   * @see https://www.electronjs.org/docs/api/context-bridge
-   */
   contextBridge.exposeInMainWorld(apiKey, api);
 } else {
   /**
@@ -37,6 +50,7 @@ if (process.contextIsolated) {
    * @see https://github.com/substack/deep-freeze
    * @param obj Object on which to lock the attributes
    */
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   const deepFreeze = (obj: any) => {
     // eslint-disable-line @typescript-eslint/no-explicit-any
     if (typeof obj === "object" && obj !== null) {
@@ -56,8 +70,10 @@ if (process.contextIsolated) {
 
   deepFreeze(api);
 
-  window[apiKey] = api;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  (window as any)[apiKey] = api;
 
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   // Need for Spectron tests
-  window.electronRequire = require;
+  (window as any).electronRequire = require;
 }

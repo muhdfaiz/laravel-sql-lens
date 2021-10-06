@@ -1,17 +1,21 @@
-import {createRouter, createWebHashHistory} from 'vue-router';
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   {
-    path: '/',
-    name: 'Setting',
+    path: "/",
+    name: "ServerSetting",
     component: () =>
-      import(/* webpackChunkName: "Setting" */'/@/views/Setting.vue'),
+      import(
+        /* webpackChunkName: "ServerSetting" */ "/@/views/ServerSetting.vue"
+      ),
   },
   {
-    path: '/sql-queries',
-    name: 'QueryList',
+    path: "/sql-queries",
+    name: "ListeningSqlQuery",
     component: () =>
-      import(/* webpackChunkName: "QueryList" */'/@/views/QueryList.vue'),
+      import(
+        /* webpackChunkName: "ListeningSqlQuery" */ "./views/ListeningSqlQuery.vue"
+      ),
   },
 ];
 

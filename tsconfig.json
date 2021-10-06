@@ -7,12 +7,18 @@
     "skipLibCheck": true,
     "strict": true,
     "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "noUncheckedIndexedAccess": true,
     "types": [
-      "node"
+      "node", "ssh2"
     ],
     "typeRoots": [
       "node_modules/@types",
     ],
-    "lib": ["ESNext"]
+    "lib": [
+      "ESNext"
+    ],
   },
+  "exclude": ["node_modules", "**/*.spec.ts"],
 }

@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: dmg
-          path: ./dist/laravel-sql-lens.setup.${{steps.app-version.outputs.PACKAGE_VERSION}}.dmg
+          path: ./dist/laravel-sqlens.setup.${{steps.app-version.outputs.PACKAGE_VERSION}}.dmg
 
   build-linux:
     name: Build Linux binaries (deb, rpm, snap, AppImage)
@@ -69,22 +69,22 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: appimage
-          path: ./dist/laravel-sql-lens-${{steps.app-version.outputs.PACKAGE_VERSION}}.AppImage
+          path: ./dist/laravel-sqlens-${{steps.app-version.outputs.PACKAGE_VERSION}}.AppImage
       - name: Upload Linux deb
         uses: actions/upload-artifact@v1
         with:
           name: deb
-          path: ./dist/laravel-sql-lens-${{steps.app-version.outputs.PACKAGE_VERSION}}.deb
+          path: ./dist/laravel-sqlens-${{steps.app-version.outputs.PACKAGE_VERSION}}.deb
       - name: Upload Linux rpm
         uses: actions/upload-artifact@v1
         with:
           name: rpm
-          path: ./dist/laravel-sql-lens-${{steps.app-version.outputs.PACKAGE_VERSION}}.rpm
+          path: ./dist/laravel-sqlens-${{steps.app-version.outputs.PACKAGE_VERSION}}.rpm
       - name: Upload Linux snap
         uses: actions/upload-artifact@v1
         with:
           name: snap
-          path: ./dist/laravel-sql-lens-${{steps.app-version.outputs.PACKAGE_VERSION}}.snap
+          path: ./dist/laravel-sqlens-${{steps.app-version.outputs.PACKAGE_VERSION}}.snap
 
   build-windows:
     name: Build Windows binary (exe)
@@ -115,9 +115,9 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: exe
-          path: ./dist/laravel-sql-lens.setup.${{steps.app-version.outputs.PACKAGE_VERSION}}.exe
+          path: ./dist/laravel-sqlens.setup.${{steps.app-version.outputs.PACKAGE_VERSION}}.exe
       - name: Upload Windows portable exe
         uses: actions/upload-artifact@v1
         with:
           name: exe
-          path: ./dist/laravel-sql-lens.portable.${{steps.app-version.outputs.PACKAGE_VERSION}}.exe
+          path: ./dist/laravel-sqlens.portable.${{steps.app-version.outputs.PACKAGE_VERSION}}.exe

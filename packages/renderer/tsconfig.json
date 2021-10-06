@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
       "/@/*": [
@@ -9,12 +10,13 @@
     },
     "lib": ["ESNext", "dom", "dom.iterable"]
   },
-
+  "types": [ "ssh2" ],
   "include": [
     "src/**/*.vue",
     "src/**/*.ts",
     "src/**/*.tsx",
     "types/**/*.d.ts",
+    "types/*.d.ts",
     "../../types/**/*.d.ts",
     "../preload/types/electron-api.d.ts"
   ]

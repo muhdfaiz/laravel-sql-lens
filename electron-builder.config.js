@@ -8,60 +8,60 @@ if (process.env.VITE_APP_VERSION === undefined) {
  * @see https://www.electron.build/configuration/configuration
  */
 const config = {
-  "appId": "com.laravel-sql-lens.app",
-  "productName": "Laravel SQL Lens",
+  "appId": "com.laravel-sqlens.app",
+  "productName": "Laravel SQLens",
   directories: {
-    output: 'dist',
-    buildResources: 'buildResources',
+    output: "dist",
+    buildResources: "buildResources",
   },
   files: [
-    'packages/**/dist/**',
-    "buildResources/icon.png"
+    "packages/**/dist/**",
+    "buildResources/icon.png",
   ],
   "win": {
     "target": [{ "target": "nsis" }, { "target": "portable" }],
     "publisherName": "Muhammad Faiz",
-    "rfc3161TimeStampServer": "http://timestamp.digicert.com"
+    "rfc3161TimeStampServer": "http://timestamp.digicert.com",
   },
   "nsis": {
-    "artifactName": "laravel-sql-lens.setup.${version}.${ext}"
+    "artifactName": "laravel-sqlens.setup.${version}.${ext}",
   },
   "portable": {
-    "artifactName": "laravel-sql-lens.portable.${version}.${ext}"
+    "artifactName": "laravel-sqlens.portable.${version}.${ext}",
   },
   "mac": {
     "target": "dmg",
     "type": "distribution",
-    "artifactName": "laravel-sql-lens.setup.${version}.${ext}",
+    "artifactName": "laravel-sqlens.setup.${version}.${ext}",
     "hardenedRuntime": true,
     "gatekeeperAssess": false,
   },
   "dmg": {
-    "sign": false
+    "sign": false,
   },
   "linux": {
     "target": [
       {
-        "target": "AppImage"
+        "target": "AppImage",
       },
       {
-        "target": "snap"
+        "target": "snap",
       },
       {
-        "target": "deb"
+        "target": "deb",
       },
       {
-        "target": "rpm"
-      }
+        "target": "rpm",
+      },
     ],
     "category": "Development",
     "icon": "buildResources",
-    "artifactName": "laravel-sql-lens-${version}.${ext}",
+    "artifactName": "laravel-sqlens-${version}.${ext}",
     "desktop": {
-      "Name": "Laravel SQL Lens",
+      "Name": "Laravel SQLens",
       "Type": "Application",
-      "Categories": "Development"
-    }
+      "Categories": "Development",
+    },
   },
 };
 

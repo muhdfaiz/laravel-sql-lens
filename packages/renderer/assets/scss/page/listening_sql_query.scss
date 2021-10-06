@@ -1,0 +1,112 @@
+#query-list {
+  font-size: 0.8rem;
+
+  .p-accordion-tab {
+    margin-bottom: 1rem !important;
+
+    &:not(:first-child) {
+      .p-accordion-header {
+        .p-accordion-header-link {
+          border-top: 1px solid #3f4b5b !important;
+        }
+      }
+    }
+
+    .p-accordion-header {
+      font-size: 0.9rem;
+      border: 0 !important;
+
+      .p-accordion-header-link {
+        background: #414a56;
+        color: #E2E3E4 !important;
+        border: 0 !important;
+
+        &:focus {
+          box-shadow: none !important;
+        }
+      }
+    }
+
+    .p-accordion-content {
+      font-size: 0.9rem;
+      color: #E2E3E4 !important;
+    }
+  }
+
+  .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
+    background: #414a56 !important;
+    color: #E2E3E4 !important;
+    box-shadow: none !important;
+  }
+
+  .copy-btn {
+    font-size: 0.8rem !important;
+    position: absolute;
+    right: 0;
+    top: 0.1rem;
+  }
+
+  .show-explain-result {
+    font-size: 0.8rem !important;
+    position: absolute;
+    right: 4.5rem;
+    top: 0.1rem;
+  }
+
+  .query-time {
+    &.good {
+      background: rgb(50 125 81);
+      color: #fff;
+    }
+    &.bad {
+      background: rgb(50 125 81);
+      color: #fff;
+    }
+  }
+
+  .listening-data {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .p-progress-spinner {
+      width: 20% !important;
+      height: 20% !important;
+    }
+  }
+
+  .slow-query-threshold, .total-query-time-threshold, .total-query-threshold {
+    .p-inputtext {
+      font-size: 0.8rem !important;
+    }
+  }
+
+
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #ddd;
+    border-radius: 1.4rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #666;
+    border-radius: 1rem;
+  }
+}
+
+#explain-result-table {
+  th,
+  td {
+    font-size: 0.85rem !important;
+    padding: 0.5rem !important;
+  }
+}
+

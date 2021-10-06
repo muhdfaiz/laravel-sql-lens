@@ -1,6 +1,6 @@
 # Contributing
 
-First and foremost, thank you! We appreciate that you want to contribute to vite-electron-builder, your time is valuable, and your contributions mean a lot to us.
+First and foremost, thank you! We appreciate that you want to contribute to laravel sqlens, your time is valuable, and your contributions mean a lot to us.
 
 ## Issues
 

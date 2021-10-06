@@ -1,12 +1,12 @@
 import { createStore, createLogger } from "vuex";
-import Setting from "./modules/Setting";
-import QueryList from "./modules/QueryList";
+import ServerSettingModule from "./modules/ServerSettingModule";
+import ListeningSqlQueryModule from "./modules/ListeningSqlQueryModule";
 
 const debug = process.env.NODE_ENV !== "production";
 
 // Create a new store instance.
 export default createStore({
-  modules: { Setting, QueryList },
+  modules: { ServerSettingModule, ListeningSqlQueryModule },
   strict: debug,
   plugins: debug ? [createLogger()] : [],
 });
