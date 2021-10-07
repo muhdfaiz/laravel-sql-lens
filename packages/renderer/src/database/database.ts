@@ -4,9 +4,9 @@ import Dexie from "dexie";
 import { ServerModel } from "./server-model";
 
 export class Database extends Dexie {
-  servers: Dexie.Table<ServerModel, number>;
-  urls: Dexie.Table<UrlModel, number>;
-  sqlQueries: Dexie.Table<SqlQueryModel, number>;
+  servers!: Dexie.Table<ServerModel, number>;
+  urls!: Dexie.Table<UrlModel, number>;
+  sqlQueries!: Dexie.Table<SqlQueryModel, number>;
 
   constructor() {
     // Create database.

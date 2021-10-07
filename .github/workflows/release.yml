@@ -1,8 +1,15 @@
 name: Release
 on:
   push:
-    tags:
-      - v*
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - '**.spec.js'
+      - '.idea'
+      - '.gitignore'
+      - '.github/**'
+      - '!.github/workflows/release.yml'
 
 jobs:
   build-macos:
@@ -33,7 +40,7 @@ jobs:
           npm run package:mac
       - name: Get binary shasum
         run: |
-          shasum -a 256 ./dist/laravel-sql-lens.setup.${{steps.app-version.outputs.PACKAGE_VERSION}}.dmg
+          shasum -a 256 ./dist/laravel-sqlens.setup.${{steps.app-version.outputs.PACKAGE_VERSION}}.dmg
       - name: Upload macOS dmg
         uses: actions/upload-artifact@v1
         with:
@@ -60,7 +67,7 @@ jobs:
         run: |
           PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
           echo "::set-output name=PACKAGE_VERSION::$PACKAGE_VERSION"
-      - name: Bundle Angular and package application
+      - name: Bundle and package application
         run: |
           npm ci
           npm run precompile

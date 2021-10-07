@@ -30,11 +30,11 @@
         </thead>
         <tbody>
           <tr
-            v-for="(rows: any, index: number) in explainResultTableData"
+            v-for="(rows, index) in explainResultTableData"
             :key="index"
           >
             <td
-              v-for="(data, key) in rows"
+              v-for="(data, key) in rows as any"
               :key="key"
             >
               {{ data }}
@@ -71,7 +71,7 @@ const explainResultTableHeaders: ComputedRef<string[]> = computed(() => {
   return listeningSqlQueryModule.explainResultTableHeaders;
 });
 
-const explainResultTableData: ComputedRef<[]> = computed(() => {
+const explainResultTableData: ComputedRef<(string | number | null)[][]> = computed(() => {
   return listeningSqlQueryModule.explainResultTableData;
 });
 

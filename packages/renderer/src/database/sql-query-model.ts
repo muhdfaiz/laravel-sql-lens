@@ -1,3 +1,5 @@
+import type { MysqlExplainResult } from "../../types/sql-query";
+
 export class SqlQueryModel {
   id?: number;
   urlId?: number;
@@ -10,6 +12,6 @@ export class SqlQueryModel {
   time?: number;
   file?: string;
   line?: number;
-  explainResult?: [];
+  explainResult?: MysqlExplainResult[];
   createdAt?: string;
 }

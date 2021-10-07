@@ -1,10 +1,11 @@
 {
   "env": {
     "browser": true,
-    "node": false
+    "node": true
   },
   "extends": [
-    /** @see https://eslint.vuejs.org/rules/ */
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:vue/vue3-recommended"
   ],
   "parserOptions": {
@@ -13,13 +14,12 @@
     "sourceType": "module"
   },
   "rules": {
-      /**
-  * This will make the history of changes in the hit a little cleaner
-  */
-  "comma-dangle": [
-    "warn",
-    "always-multiline"
-  ]
+    /**
+    * This will make the history of changes in the hit a little cleaner
+    */
+    "comma-dangle": [
+      "warn",
+      "always-multiline"
+    ]
   }
-
 }

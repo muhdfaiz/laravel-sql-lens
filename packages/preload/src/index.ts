@@ -3,6 +3,7 @@ import { contextBridge, ipcRenderer } from "electron";
 import type { ElectronApi } from "types/electron-api";
 import type { ServerModel } from "../../renderer/src/database/server-model";
 import type { ISshConnectionData } from "../../renderer/types/ssh-connection";
+import type { Event } from "electron/main";
 
 const apiKey = "electron";
 

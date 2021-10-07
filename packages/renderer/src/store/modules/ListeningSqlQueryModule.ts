@@ -9,7 +9,7 @@ export default class ListeningSqlQueryModule extends VuexModule {
   totalQueryThreshold = 20;
   showExplainResultModal = false;
   explainResultTableHeaders: string[] = [];
-  explainResultTableData: [] = [];
+  explainResultTableData: (string | number | null)[][] = [];
   saveQueryIntoStorage = true;
 
   @Mutation
@@ -53,7 +53,10 @@ export default class ListeningSqlQueryModule extends VuexModule {
   }
 
   @Mutation
-  pushNewExplainResultTableData(explainResultTableData: []): void {
+  pushNewExplainResultTableData(
+    explainResultTableData: (string | number | null)[],
+  ): void {
+    console.log(explainResultTableData);
     this.explainResultTableData.push(explainResultTableData);
   }
 

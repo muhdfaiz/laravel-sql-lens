@@ -150,7 +150,7 @@
 
 <script lang="ts" setup>
 import type { ComputedRef } from "vue";
-import { inject, computed, onMounted, ref, onBeforeUpdate } from "vue";
+import { computed, onMounted, ref, onBeforeUpdate } from "vue";
 import { format } from "sql-formatter";
 import hljsVuePlugin from "@highlightjs/vue-plugin";
 import "highlight.js/scss/monokai.scss";
@@ -161,14 +161,14 @@ import AccordionTab from "primevue/accordiontab";
 import OverlayPanel from "primevue/overlaypanel";
 import Button from "primevue/button";
 import Tag from "primevue/tag";
-import type { SqlQuery, SqlQueryGroup } from "types/sql-query";
+import type { MysqlExplainResult, SqlQuery, SqlQueryGroup } from "types/sql-query";
 import { useToast } from "primevue/usetoast";
 import { useElectron } from "../../use/electron";
 import { useStore } from "vuex";
 import { getModule } from "vuex-module-decorators";
 import ListeningSqlQueryModule from "../../store/modules/ListeningSqlQueryModule";
-import type { Database } from "/@/database/database";
-import dayjs from "dayjs";
+// import type { Database } from "/@/database/database";
+// import dayjs from "dayjs";
 import type { UrlModel } from "/@/database/url-model";
 import { toClipboard } from "@soerenmartius/vue3-clipboard";
 import type { SqlQueryModel } from "/@/database/sql-query-model";
@@ -178,7 +178,7 @@ hljs.registerLanguage("sql", sql);
 const $electron = useElectron();
 
 // Database
-let db: Database | undefined = inject("db");
+// let db: Database | undefined = inject("db");
 
 // Vuex modules.
 const $store = useStore();
@@ -228,17 +228,17 @@ const displayExplainResultModal = (query: SqlQueryModel) => {
     return;
   }
 
-  const firstExplainResult = query?.explainResult[0];
+  const firstExplainResult = query?.explainResult[0] as MysqlExplainResult;
 
-  const headers: string[] = Object.keys(firstExplainResult) as string[];
+  const headers = Object.keys(firstExplainResult);
 
   // Set table header.
   listeningSqlQueryModule.setExplainResultTableHeaders(headers);
 
-  query.explainResult.forEach((explainResult: any) => {
-    console.log(Object.values(explainResult));
-    console.log(Object.values(explainResult));
-    listeningSqlQueryModule.pushNewExplainResultTableData(Object.values(explainResult));
+  query.explainResult.forEach((explainResult: MysqlExplainResult) => {
+    let explainResultData: (string|number|null)[] = Object.values(explainResult);
+
+    listeningSqlQueryModule.pushNewExplainResultTableData(explainResultData);
   });
 
   listeningSqlQueryModule.setShowExplainResultModal(true);
@@ -248,48 +248,48 @@ const displayExplainResultModal = (query: SqlQueryModel) => {
  * Display issue details for the queries.
  */
 const toggleIssuesFound = (event: Event, overlayIndex: number) => {
-  issueOverlay.value[overlayIndex].toggle(event);
+    issueOverlay["value"]?.[overlayIndex]?.toggle(event);
 };
 
 /**
  * Store sql queries received.
  */
-const storeSqlQueries = (sqlQueryGroup: SqlQueryGroup, fastestQueryTime: number, slowestQueryTime: number,
-  totalQueryTime: number, averageQueryTime: number, containN1Issue: boolean) => {
+// const storeSqlQueries = (sqlQueryGroup: SqlQueryGroup, fastestQueryTime: number, slowestQueryTime: number,
+//   totalQueryTime: number, averageQueryTime: number, containN1Issue: boolean) => {
 
-  const inputs = {
-    url: sqlQueryGroup.url,
-    totalQueries: sqlQueryGroup.queries.length,
-    containN1Issue: containN1Issue,
-    fastestQueryTime: fastestQueryTime,
-    slowestQueryTime: slowestQueryTime,
-    averageQueryTime: averageQueryTime,
-    totalQueryTime: totalQueryTime,
-    createdAt: new Date().toString(),
-  };
+//   const inputs = {
+//     url: sqlQueryGroup.url,
+//     totalQueries: sqlQueryGroup.queries.length,
+//     containN1Issue: containN1Issue,
+//     fastestQueryTime: fastestQueryTime,
+//     slowestQueryTime: slowestQueryTime,
+//     averageQueryTime: averageQueryTime,
+//     totalQueryTime: totalQueryTime,
+//     createdAt: new Date().toString(),
+//   };
 
-  // Store new url in database.
-  db?.urls.add(inputs).then((id: number) => {
-    sqlQueryGroup.queries.forEach((sqlQuery: SqlQuery) => {
-      const inputs = {
-        urlId: id,
-        connection: sqlQuery.connection,
-        driver: sqlQuery.driver,
-        database: sqlQuery.database,
-        bindings: sqlQuery.bindings,
-        sqlWithoutBindings: sqlQuery.sqlWithoutBindings,
-        sqlWithBindings: sqlQuery.sqlWithBindings,
-        time: sqlQuery.time,
-        file: sqlQuery.file,
-        line: sqlQuery.line,
-        explainResult: sqlQuery.explainResult,
-        createdAt: dayjs().format("YYYY-MM-DD HH:mm:ss"),
-      };
+//   // Store new url in database.
+//   db?.urls.add(inputs).then((id: number) => {
+//     sqlQueryGroup.queries.forEach((sqlQuery: SqlQuery) => {
+//       const inputs = {
+//         urlId: id,
+//         connection: sqlQuery.connection,
+//         driver: sqlQuery.driver,
+//         database: sqlQuery.database,
+//         bindings: sqlQuery.bindings,
+//         sqlWithoutBindings: sqlQuery.sqlWithoutBindings,
+//         sqlWithBindings: sqlQuery.sqlWithBindings,
+//         time: sqlQuery.time,
+//         file: sqlQuery.file,
+//         line: sqlQuery.line,
+//         explainResult: sqlQuery.explainResult,
+//         createdAt: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+//       };
 
-      db?.sqlQueries.add(inputs);
-    });
-  });
-};
+//       db?.sqlQueries.add(inputs);
+//     });
+//   });
+// };
 
 /**
  * Check if query contain n1 issue.

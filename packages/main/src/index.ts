@@ -353,19 +353,16 @@ ipcMain.handle(
             },
           );
         })
-        .on(
-          "tcp connection",
-          (info: ClientInfo, accept: () => SshClient, reject: () => void) => {
-            accept()
-              .on("data", (newSqlQueryGroup: string) => {
-                event.sender.send(
-                  "new-sql-query-group-received",
-                  JSON.parse(newSqlQueryGroup),
-                );
-              })
-              .end();
-          },
-        )
+        .on("tcp connection", (info: ClientInfo, accept: () => SshClient) => {
+          accept()
+            .on("data", (newSqlQueryGroup: string) => {
+              event.sender.send(
+                "new-sql-query-group-received",
+                JSON.parse(newSqlQueryGroup),
+              );
+            })
+            .end();
+        })
         .on("error", () => {
           event.sender.send("test-ssh-connection-result", {
             result: false,

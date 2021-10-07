@@ -40,7 +40,7 @@
               v-if="v$.name.$error"
               class="p-error p-mt-1"
             >
-              {{ v$.name.$errors[0].$message }}
+              {{ displayVuelidateError(v$.name.$errors) }}
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
               v-if="v$.host.$error"
               class="p-error p-mt-1"
             >
-              {{ v$.host.$errors[0].$message }}
+              {{ displayVuelidateError(v$.host.$errors) }}
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@
               v-if="v$.port.$error"
               class="p-error p-mt-1"
             >
-              {{ v$.port.$errors[0].$message }}
+              {{ displayVuelidateError(v$.port.$errors) }}
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@
                 v-if="v$.sshServer.$error"
                 class="p-error p-mt-1"
               >
-                {{ v$.sshServer.$errors[0].$message }}
+                {{ displayVuelidateError(v$.sshServer.$errors) }}
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@
                 v-if="v$.sshPort.$error"
                 class="p-error p-mt-1"
               >
-                {{ v$.sshPort.$errors[0].$message }}
+                {{ displayVuelidateError(v$.sshPort.$errors) }}
               </div>
             </div>
           </div>
@@ -181,7 +181,7 @@
                 v-if="v$.sshUser.$error"
                 class="p-error p-mt-1"
               >
-                {{ v$.sshUser.$errors[0].$message }}
+                {{ displayVuelidateError(v$.sshUser.$errors) }}
               </div>
             </div>
           </div>
@@ -219,7 +219,7 @@
                   v-if="v$.sshPassword.$error"
                   class="p-error p-mt-1"
                 >
-                  {{ v$.sshPassword.$errors[0].$message }}
+                  {{ displayVuelidateError(v$.sshPassword.$errors) }}
                 </div>
               </div>
             </div>
@@ -253,7 +253,7 @@
                     v-if="v$.sshPrivateKey.$error"
                     class="p-error p-mt-1"
                   >
-                    {{ v$.sshPrivateKey.$errors[0].$message }}
+                    {{ displayVuelidateError(v$.sshPrivateKey.$errors) }}
                   </div>
                 </div>
               </div>
@@ -321,6 +321,7 @@ import ProgressSpinner from "primevue/progressspinner";
 import type { ISshConnectionResult} from "../../../types/ssh-connection";
 import type { Database } from "../../database/database";
 import type { ServerModel } from "../../database/server-model";
+import { displayVuelidateError } from "/@/helper/helper";
 
 // Vuex module
 const $store = useStore();
@@ -525,7 +526,7 @@ const storeNewServer = async () => {
  */
 const onSelectedPrivateKey = (event: Event, data: {canceled: boolean, filePaths: string[]}) => {
   if (data.filePaths.length > 0) {
-    sshPrivateKey.value = data.filePaths[0];
+    sshPrivateKey.value = data.filePaths[0] as string;
   }
 
   $electron.removeListener("selected-ssh-private-key");
