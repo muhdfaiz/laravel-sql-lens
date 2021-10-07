@@ -213,8 +213,6 @@ ipcMain.handle(
           "new-sql-query-group-received",
           JSON.parse(newSqlQueryGroup),
         );
-
-        socket.end();
       });
 
       socket.on("error", function (err: Error) {

@@ -172,6 +172,7 @@ import ListeningSqlQueryModule from "../../store/modules/ListeningSqlQueryModule
 import type { UrlModel } from "/@/database/url-model";
 import { toClipboard } from "@soerenmartius/vue3-clipboard";
 import type { SqlQueryModel } from "/@/database/sql-query-model";
+import type { OverlayComponent } from "../../../types/primevue";
 
 hljs.registerLanguage("sql", sql);
 
@@ -200,7 +201,7 @@ const totalQueryTimeThreshold: ComputedRef<number> = computed(() => {
   return listeningSqlQueryModule.totalQueryTimeThreshold;
 });
 
-const issueOverlay = ref<OverlayPanel[]>([]);
+const issueOverlay = ref<OverlayComponent[]>([]);
 const $toast = useToast();
 
 /**

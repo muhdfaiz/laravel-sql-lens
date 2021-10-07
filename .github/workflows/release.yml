@@ -1,8 +1,7 @@
 name: Release
-on:
   push:
     branches:
-      - main
+      - master
     paths-ignore:
       - '**.md'
       - '**.spec.js'
@@ -10,6 +9,8 @@ on:
       - '.gitignore'
       - '.github/**'
       - '!.github/workflows/release.yml'
+  pull_request:
+
 
 jobs:
   build-macos:
