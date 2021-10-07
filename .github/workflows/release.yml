@@ -10,7 +10,13 @@ name: Release
       - '.github/**'
       - '!.github/workflows/release.yml'
   pull_request:
-
+    paths-ignore:
+      - '**.md'
+      - '**.spec.js'
+      - '.idea'
+      - '.gitignore'
+      - '.github/**'
+      - '!.github/workflows/release.yml'
 
 jobs:
   build-macos:
